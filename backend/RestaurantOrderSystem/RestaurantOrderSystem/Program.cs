@@ -6,6 +6,10 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+//EF Core mit SQLite registrieren
+//builder.Services.AddDbContext<appDbContext>(options => 
+//        )
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
