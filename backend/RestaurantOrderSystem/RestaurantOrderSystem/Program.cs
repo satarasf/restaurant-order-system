@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using RestaurantOrderSystem.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 //EF Core mit SQLite registrieren
-//builder.Services.AddDbContext<appDbContext>(options => 
-//        )
+builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlite("Data Source=restaurant.db"));
 
 var app = builder.Build();
 
