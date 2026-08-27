@@ -1,0 +1,21 @@
+# ===== .NET / Visual Studio =====
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.db
+*.db-shm
+*.db-wal
+
+# ===== Node / SvelteKit =====
+node_modules/
+.svelte-kit/
+build/
+dist/
+.env
+.env.local
+
+# ===== Allgemein =====
+.DS_Store
+*.log
