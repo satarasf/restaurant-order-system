@@ -23,6 +23,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowFrontend");
+
+app.UseStaticFiles(); // für Bilder aus wwwroot/images
+
 app.UseAuthorization();
 
 app.MapControllers();
