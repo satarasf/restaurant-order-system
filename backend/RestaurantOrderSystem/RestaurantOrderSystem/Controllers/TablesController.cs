@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Table = RestaurantOrderSystem.Models.Table;
+
+// Der Compiler "Verwechselt" manchmal welche Table ich nutzen will,
+// weil Entity Framework Core auch eine Klasse namens Table hat. Daher der using Table = ...
 
 namespace RestaurantOrderSystem.Controllers
 {
@@ -18,19 +22,19 @@ namespace RestaurantOrderSystem.Controllers
 
 
         [HttpGet]
-        public IEnumerable<RestaurantOrderSystem.Models.Table> GetTables()
+        public IEnumerable<Table> GetTables()
         {
             return _context.Tables.ToList();
         }
 
         [HttpGet("{id}")]
-        public RestaurantOrderSystem.Models.Table? GetTable(int id)
+        public Table? GetTable(int id)
         {
             return _context.Tables.FirstOrDefault(x => x.Id == id);
         }
 
         [HttpPost]
-        public RestaurantOrderSystem.Models.Table CreateTable(RestaurantOrderSystem.Models.Table table)
+        public Table CreateTable(Table table)
         {
             _context.Tables.Add(table);
             _context.SaveChanges();
@@ -40,7 +44,7 @@ namespace RestaurantOrderSystem.Controllers
 
 
         [HttpPut("{id}")]
-        public void UpdateTable(int id, RestaurantOrderSystem.Models.Table table)
+        public void UpdateTable(int id, Table table)
         {
             table.Id = id;
             _context.Entry(table).State = EntityState.Modified;
