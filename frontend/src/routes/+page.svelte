@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { cart } from '$lib/cart.svelte';
+	import { SvelteMap } from 'svelte/reactivity';
+
 	interface Category {
 		id: number;
-		name: string;
+		name: string,
 	}
 
 	interface MenuItem {
@@ -11,6 +14,7 @@
 		price: number;
 		isAvailable: boolean;
 		imageUrl: string | null;
+
 		categoryId: number;
 		category: Category | null;
 	}
@@ -19,72 +23,35 @@
 	let loading = $state(true);
 	let error = $state<string | null>(null);
 
-	async function loadMenuItems() {
-		try {
-			const response = await fetch('http://localhost:5072/api/MenuItems');
-			if (!response.ok) {
+	async function loadMenuItems(){
+		try{
+			const response = await fetch('https://localhost:5072/api/MenuItems');
+			if(!response.ok){
 				throw new Error('Fehler beim Laden der Speisekarte');
 			}
 			menuItems = await response.json();
-		} catch (err) {
+		}catch(err){
 			error = err instanceof Error ? err.message : 'Unbekannter Fehler';
-		} finally {
+		}finally{ // wird immer ausgeführt. Egal ob es funktioniert oder nicht.
 			loading = false;
 		}
 	}
 
 	loadMenuItems();
+	
+	// Gerichte nach Kategorien Gruppieren
+	let groupedItems = $derived.by(() => {
+		const groups = new SvelteMap<string, MenuItem[]>();
+
+		for(const item of menuItems){
+			const categoryName = item.category?.name ?? 'Ohne Kategorie';
+			if (!groups.has(categoryName)){
+				groups.set(categoryName, []);
+			}
+			groups.get(categoryName)!.push(item);
+		}
+		return groups;
+	});
+
+	
 </script>
-
-<main>
-	<h1>Speisekarte</h1>
-
-	{#if loading}
-		<p>Lädt...</p>
-	{:else if error}
-		<p class="error">{error}</p>
-	{:else if menuItems.length === 0}
-		<p>Keine Gerichte gefunden. Leg zuerst welche über Swagger an.</p>
-	{:else}
-		<div class="menu-list">
-			{#each menuItems as item (item.id)}
-				<div class="menu-item">
-					<h3>{item.name}</h3>
-					{#if item.description}
-						<p>{item.description}</p>
-					{/if}
-					<span class="price">{item.price.toFixed(2)} €</span>
-				</div>
-			{/each}
-		</div>
-	{/if}
-</main>
-
-<style>
-	main {
-		max-width: 600px;
-		margin: 0 auto;
-		padding: 1rem;
-		font-family: sans-serif;
-	}
-
-	.menu-list {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.menu-item {
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		padding: 1rem;
-	}
-
-	.price {
-		font-weight: bold;
-	}
-
-	.error {
-		color: red;
-	}
-</style>
