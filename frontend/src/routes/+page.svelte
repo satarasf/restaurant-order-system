@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { cart } from '$lib/cart.svelte';
 	import { SvelteMap } from 'svelte/reactivity';
+	import { page } from '$app/state';
+
+	let tableId = $derived(Number(page.url.searchParams.get('tisch')) || 1);
+	// page.url.searchParams.get('tisch') liest den tisch-Prameter aus der aktuellen URL => 3 aus ?tisch=3
+	// Number() convertiert es in zahl um
+	// || 1 Fallback, falls kein tischparameter.
 
 	interface Category {
 		id: number;
@@ -103,7 +109,7 @@
 {#if cart.totalItems > 0}
 	<div class="cart-bar">
 		<span>{cart.totalItems} Artikel · {cart.totalPrice.toFixed(2)} €</span>
-		<a href="/checkout">Zur Bestellung</a>
+		<a href="/checkout?tisch={tableId}">Zur Bestellung</a>
 	</div>
 {/if}
 

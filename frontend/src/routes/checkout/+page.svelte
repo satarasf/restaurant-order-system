@@ -2,8 +2,9 @@
     import { cart } from '$lib/cart.svelte';
     // import { goto } from '$app/navigation';
     import { resolve } from '$app/paths';
+    import { page } from '$app/state';
 
-    let tableId = $state(1); // vorerst fix; sp#teer zb aus der URL.
+    let tableId = $derived(Number(page.url.searchParams.get('tisch')) || 1); // vorerst fix; sp#teer zb aus der URL.
     let submitting  = $state(false);
     let error = $state<string | null>(null);
     let success = $state(false);

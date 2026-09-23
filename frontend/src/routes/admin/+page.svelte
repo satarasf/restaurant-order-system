@@ -111,7 +111,7 @@
                             Tisch {order.table?.tableNumber ?? order.tableId}
                         </span>
                         <select 
-                            value={order.status}
+                            bind:value={order.status}
                             onchange={(e) => updateStatus(order, Number(e.currentTarget.value))}
                         >
                             {#each Object.entries(statusLabels) as [value, label] (value)}
