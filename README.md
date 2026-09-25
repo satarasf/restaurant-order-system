@@ -10,11 +10,11 @@ das Personal verwaltet eingehende Bestellungen über eine Admin-Oberfläche.
 -  Rest-api mit vollem CRUD für Kategorien - Gerichte - Tische - Bestellungen und Bestellpositionen
 
 ## Tech-Stack
-### Backend
+Backend
 -  ASP.NET Core Web API (.NET 10)
 -  Entity Framework Core mit SQLite
 -  Swagger / OpenAPI zur API-Dokumentation
-### Frontend
+rontend
 -  SvelteKit (Svelte 5, TypeScript)
 -  Ich hab mir selbst eine Lösung gebaut (mit Svelte5 eingebauten Werkzeugen namens 'Runes'), um zu verwalten, was im Warenkorb liegt, statt eine fertige externe Bib zu nutzen."
 
@@ -32,7 +32,7 @@ RestaurantApp/
 ```
 
 ## DatenModell
-<img width="1000" height="700" alt="image" src="https://github.com/user-attachments/assets/437f7590-4a68-4907-9a28-04c2ef7df5eb" />
+<img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/437f7590-4a68-4907-9a28-04c2ef7df5eb" />
 Eine (Mehrere) Bestellung (Order) ist einem Tisch zugeordnet und besteht aus mehreren Bestellpositionen (OrderItem), die jeweils auf ein Gericht (MenuItem) verweisen.
 
 ## Setup & Start
