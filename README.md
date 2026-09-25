@@ -33,6 +33,7 @@ RestaurantApp/
 
 ## DatenModell
 <img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/437f7590-4a68-4907-9a28-04c2ef7df5eb" />
+
 Eine (Mehrere) Bestellung (Order) ist einem Tisch zugeordnet und besteht aus mehreren Bestellpositionen (OrderItem), die jeweils auf ein Gericht (MenuItem) verweisen.
 
 ## Setup & Start
